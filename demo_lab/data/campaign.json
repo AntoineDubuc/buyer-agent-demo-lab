@@ -1,0 +1,15 @@
+{
+  "_note": "A sample performance-media campaign. Sample data, not a real advertiser's plan.",
+  "advertiser_id": "ADV-DEMO-001",
+  "campaign_name": "Q3 Retail Back-to-School - CTV-led",
+  "objective": "REACH",
+  "currency": "USD",
+  "total_budget": 150000,
+  "flight_start": "2026-07-01",
+  "flight_end": "2026-09-30",
+  "channels": [
+    {"channel": "CTV", "budget_pct": 50, "format_prefs": ["video_30s", "video_15s"]},
+    {"channel": "DISPLAY", "budget_pct": 30, "format_prefs": ["300x250", "728x90"]},
+    {"channel": "AUDIO", "budget_pct": 20, "format_prefs": ["audio_30s"]}
+  ]
+}

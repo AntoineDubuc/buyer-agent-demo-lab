@@ -1,0 +1,14 @@
+{
+  "_note": "Simulated sellers. Not evidence about real sellers. L = opening (list) CPM, F = floor CPM the seller never goes below, k = how much of the gap to the buyer's offer the seller gives up each round.",
+  "buyer": {"target_cpm": 20.0, "max_cpm": 30.0, "concession_step": 2.0, "max_rounds": 6},
+  "tournament": {"deals": 200, "seed": 20261023, "jitter": 0.05},
+  "caps": {"max_seller_rounds": 20, "per_deal_seconds": 10, "per_strategy_seconds": 120},
+  "personalities": [
+    {"id": "proportional_conceder", "title": "Proportional conceder", "plain": "Opens high and gives up about a third of the gap every round.", "list_price": 40.0, "floor": 22.0, "k": 0.35},
+    {"id": "firm", "title": "Firm seller", "plain": "Opens near its floor and barely moves.", "list_price": 31.0, "floor": 29.5, "k": 0.03},
+    {"id": "floor_accepting", "title": "Takes any offer at its floor", "plain": "Holds its asking price but says yes to any offer of $26 or more.", "list_price": 32.0, "floor": 26.0, "k": 0.0, "accept_at_floor": true},
+    {"id": "wall", "title": "Wall", "plain": "Will not go below $40. No buyer within budget can close.", "list_price": 40.0, "floor": 40.0, "k": 0.0},
+    {"id": "stubborn_then_caves", "title": "Stubborn, then caves", "plain": "Refuses to move for three rounds, then concedes half the gap each round.", "list_price": 36.0, "floor": 24.0, "k": 0.0, "stubborn_rounds": 3, "k_after": 0.5},
+    {"id": "seeded_random", "title": "Random (seeded)", "plain": "Opening price $28-45, floor 60-90% of that, concession 0-50% a round. Same seed, same sellers.", "random": {"list_price": [28.0, 45.0], "floor_frac": [0.6, 0.9], "k": [0.0, 0.5]}}
+  ]
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Demo-lab fixture. Declared ad metadata only; there is no real media file behind it. -->
+<VAST version="4.2">
+  <Ad id="ctv_valid_30s_vast42">
+    <InLine>
+      <AdSystem>demo-lab</AdSystem>
+      <AdTitle>ctv_valid_30s_vast42</AdTitle>
+      <Impression><![CDATA[https://example.invalid/impression]]></Impression>
+      <Creatives>
+        <Creative id="c1">
+          <Linear>
+            <Duration>00:00:30</Duration>
+            <MediaFiles>
+              <MediaFile delivery="progressive" type="video/mp4" width="1920" height="1080" bitrate="15000"><![CDATA[https://example.invalid/ctv_valid_30s_vast42.mp4]]></MediaFile>
+            </MediaFiles>
+          </Linear>
+        </Creative>
+      </Creatives>
+    </InLine>
+  </Ad>
+</VAST>

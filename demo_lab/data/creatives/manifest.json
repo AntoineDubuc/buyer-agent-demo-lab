@@ -1,0 +1,151 @@
+{
+  "_note": "expected_problem is the LAB's own plain-English label, used only to explain the before column. It is never sent to the product. Thresholds are industry-typical guesses, not any publisher's spec sheet.",
+  "fixtures": [
+    {
+      "id": "ctv_valid_30s",
+      "asset_name": "Back-to-School 30s (valid)",
+      "asset_type": "video",
+      "channel": "CTV",
+      "slot": "video_30s",
+      "source": "vast/ctv_valid_30s_vast42.xml",
+      "expected_problem": null
+    },
+    {
+      "id": "ctv_too_long_45s",
+      "asset_name": "Back-to-School 45s cut",
+      "asset_type": "video",
+      "channel": "CTV",
+      "slot": "video_30s",
+      "source": "vast/ctv_too_long_45s.xml",
+      "expected_problem": "This ad is 45 seconds; the slot is 30 seconds."
+    },
+    {
+      "id": "ctv_vast20",
+      "asset_name": "Back-to-School 15s (old VAST 2.0 tag)",
+      "asset_type": "video",
+      "channel": "CTV",
+      "slot": "video_15s",
+      "source": "vast/ctv_vast20.xml",
+      "expected_problem": "Uses VAST 2.0; streaming TV needs VAST 4.x."
+    },
+    {
+      "id": "ctv_wrong_size",
+      "asset_name": "Back-to-School 30s (640x480)",
+      "asset_type": "video",
+      "channel": "CTV",
+      "slot": "video_30s",
+      "source": "vast/ctv_wrong_size_640x480.xml",
+      "expected_problem": "Picture is 640x480; streaming TV needs widescreen HD."
+    },
+    {
+      "id": "audio_64kbps",
+      "asset_name": "Radio spot 30s (64 kbps)",
+      "asset_type": "audio",
+      "channel": "AUDIO",
+      "slot": "audio_30s",
+      "source": "declared/audio_64kbps.json",
+      "expected_problem": "Audio bitrate is 64 kbps; minimum is 128 kbps."
+    },
+    {
+      "id": "display_300x600",
+      "asset_name": "Half-page banner 300x600",
+      "asset_type": "display",
+      "channel": "DISPLAY",
+      "slot": "300x250",
+      "source": "declared/display_300x600.json",
+      "expected_problem": "Size 300x600 is not one of the planned sizes (300x250, 728x90)."
+    },
+    {
+      "id": "ctv_missing_duration",
+      "asset_name": "Back-to-School spot (no duration declared)",
+      "asset_type": "video",
+      "channel": "CTV",
+      "slot": "video_30s",
+      "source": "vast/ctv_missing_duration.xml",
+      "expected_problem": "The ad does not say how long it is, so nobody can check it fits the slot."
+    },
+    {
+      "id": "display_valid_300x250",
+      "asset_name": "Medium rectangle 300x250 (valid)",
+      "asset_type": "display",
+      "channel": "DISPLAY",
+      "slot": "300x250",
+      "source": "declared/display_valid_300x250.json",
+      "expected_problem": null
+    },
+    {
+      "id": "audio_valid_30s",
+      "asset_name": "Radio spot 30s (valid, 192 kbps)",
+      "asset_type": "audio",
+      "channel": "AUDIO",
+      "slot": "audio_30s",
+      "source": "declared/audio_valid_30s.json",
+      "expected_problem": null
+    }
+  ],
+  "setup_fixtures": [
+    {
+      "id": "setup_ctv",
+      "asset_name": "Setup: CTV 30s",
+      "asset_type": "video",
+      "channel": "CTV",
+      "slot": "video_30s",
+      "source": "vast/ctv_valid_30s_vast42.xml"
+    },
+    {
+      "id": "setup_display",
+      "asset_name": "Setup: Display 300x250",
+      "asset_type": "display",
+      "channel": "DISPLAY",
+      "slot": "300x250",
+      "source": "declared/display_valid_300x250.json"
+    },
+    {
+      "id": "setup_audio",
+      "asset_name": "Setup: Audio 30s",
+      "asset_type": "audio",
+      "channel": "AUDIO",
+      "slot": "audio_30s",
+      "source": "declared/audio_valid_30s.json"
+    }
+  ],
+  "cases": [
+    {
+      "id": "seven_fixtures",
+      "title": "Seven ads, six with a problem",
+      "description": "One good streaming TV ad plus six that each break one rule: too long, old VAST version, wrong picture size, low audio quality, wrong banner size, and no duration declared.",
+      "fixtures": [
+        "ctv_valid_30s",
+        "ctv_too_long_45s",
+        "ctv_vast20",
+        "ctv_wrong_size",
+        "audio_64kbps",
+        "display_300x600",
+        "ctv_missing_duration"
+      ],
+      "expect_after": "The campaign is held back from launch, every broken ad is marked invalid with a plain-English reason, and the good ad is marked valid."
+    },
+    {
+      "id": "headline_three",
+      "title": "The headline case: three streaming TV ads",
+      "description": "One good 30-second ad, one 45-second ad for a 30-second slot, and one built on the outdated VAST 2.0 standard.",
+      "fixtures": [
+        "ctv_valid_30s",
+        "ctv_too_long_45s",
+        "ctv_vast20"
+      ],
+      "expect_after": "The campaign is held back from launch, every broken ad is marked invalid with a plain-English reason, and the good ad is marked valid."
+    },
+    {
+      "id": "all_valid",
+      "title": "Only good ads: one per channel",
+      "description": "A good streaming TV ad, a good display banner and a good radio spot. Nothing is wrong, so the check must not get in the way.",
+      "fixtures": [
+        "ctv_valid_30s",
+        "display_valid_300x250",
+        "audio_valid_30s"
+      ],
+      "expect_after": "All three ads are marked valid and the campaign reaches READY (the check must not block good campaigns)."
+    }
+  ]
+}

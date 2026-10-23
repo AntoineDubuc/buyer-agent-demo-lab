@@ -1,0 +1,43 @@
+{
+  "_note": "Pace = actual spend as a percent of the linear expected spend on as_of. Spend values are computed from these at run time (demo_lab/scenarios.py). Sample delivery data.",
+  "as_of": "2026-08-15T00:00:00Z",
+  "cpm": {"CTV": 28.0, "DISPLAY": 6.0, "AUDIO": 12.0},
+  "fill_rate": {"CTV": 0.62, "DISPLAY": 0.85, "AUDIO": 0.78},
+  "scenarios": [
+    {
+      "id": "ctv_cant_spend",
+      "title": "Streaming TV can't spend its budget",
+      "description": "Halfway through the flight, streaming TV has spent only 72% of what it should have. Display is over-spending (135%). Audio is right on plan.",
+      "pace": {"CTV": 72, "DISPLAY": 135, "AUDIO": 100},
+      "expect_after": "Streaming TV flagged behind, Display flagged ahead, Audio on track, and one recommendation to move money from streaming TV to Display."
+    },
+    {
+      "id": "audio_over",
+      "title": "Audio is over-delivering",
+      "description": "Audio is spending 28% faster than plan. Streaming TV and Display are within a few percent of plan.",
+      "pace": {"CTV": 98, "DISPLAY": 96, "AUDIO": 128},
+      "expect_after": "Audio flagged ahead, the other two on track. No channel is behind, so there may be nowhere to move money from."
+    },
+    {
+      "id": "all_on_pace",
+      "title": "Everything on plan",
+      "description": "All three channels are within 3% of plan.",
+      "pace": {"CTV": 101, "DISPLAY": 97, "AUDIO": 103},
+      "expect_after": "All three on track and no money moves recommended (the null case: the agent should stay quiet)."
+    },
+    {
+      "id": "two_behind_one_ahead",
+      "title": "Two channels behind, one ahead",
+      "description": "Streaming TV (75%) and Audio (78%) are both behind; Display is ahead (130%).",
+      "pace": {"CTV": 75, "DISPLAY": 130, "AUDIO": 78},
+      "expect_after": "Two channels flagged behind, Display ahead; the total money moved should not exceed what Display can absorb."
+    },
+    {
+      "id": "no_delivery_yet",
+      "title": "No delivery reported yet",
+      "description": "The delivery file has no numbers for this campaign yet.",
+      "pace": null,
+      "expect_after": "The agent says plainly that it has no delivery data, and recommends nothing."
+    }
+  ]
+}

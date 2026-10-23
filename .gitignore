@@ -1,0 +1,13 @@
+# Outputs and caches (tools that run `git add -A` must not pick these up)
+out/
+results/
+.cache/
+*.db
+*.db-shm
+*.db-wal
+# Virtual environments
+.venv/
+venv/
+# Python
+__pycache__/
+*.pyc
