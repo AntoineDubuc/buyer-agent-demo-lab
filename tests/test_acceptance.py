@@ -127,6 +127,8 @@ class PageTable(unittest.TestCase):
         self.assertIn("Acceptance check", html)
         self.assertIn("PASS", html)
         for change in A.CHANGES:
+            if change not in R.PAGES:  # budget-desk is pass/fail only; it has no before/after page
+                continue
             self.assertIn("Acceptance check", R.render(change, {"result": {}}, None))
 
 

@@ -25,7 +25,7 @@ from typing import Any
 
 from . import common
 
-CHANGES = ("pacing", "creatives", "negotiation")
+CHANGES = ("pacing", "creatives", "negotiation", "budget-desk")
 LAB_VERSION = "1.0.0"
 
 
@@ -62,6 +62,10 @@ async def _run_change(name: str, workdir: Path) -> dict[str, Any]:
         from .runners import pacing
 
         return await pacing.run(workdir)
+    if name == "budget-desk":
+        from .runners import budget_desk
+
+        return await budget_desk.run(workdir)
     if name == "creatives":
         from .runners import creatives
 

@@ -80,6 +80,21 @@ Not required, and printed as `NOTE`: the adaptive negotiator is not expected to 
 reference build it closes fewer deals than today's against the firm seller, neither closes against the
 "stubborn, then caves" seller, and nobody can close against the wall seller ($40 floor).
 
+**Budget Move Desk (`budget-desk`).** Proves the Part 1 PRD ("Budget Move Desk, Part 1: Deciding") through its eleven agent
+tools, called in-process: `run_budget_desk_check`, `list_budget_moves`, `get_move`, `approve_budget_move`,
+`reject_budget_move`, `mark_move_done`, `mark_overspend_handled`, `get_budget_rules`, `set_budget_rules`,
+`get_budget_history`, `list_budget_desk_campaigns`.
+- **Data.** The lab writes its own data with `demo_lab/budget_desk_data.py`, never the change's seed:
+  - campaigns are created with `CampaignStore.save_campaign(status="active")`;
+  - each scenario gets its own campaign and its own delivery file of daily rows, set through `PACING_DELIVERY_FILE`.
+- **Identity.** The lab mints an operator key labelled "A. Dubuc" and sets `BUYER_OPERATOR_KEY`.
+- **Criteria.** There is one criterion per acceptance criterion the tools can prove, named by its id
+  (`AC-FR001-01` …), plus the seed (`AC-FR021-01/02`) and no network (`NFR-SEC-03`). There are 62 in all
+  (`demo_lab/budget_desk_criteria.py`).
+- **Not proven here.** The screens (FR-017 to FR-020), HTTP-only behaviour (AC-FR016-02), sizing-level criteria AC-FR015-02/03
+  and the schema migration belong to the change's own pytest and DOM checks.
+- **Pages.** There are no before/after pages for this scenario; it is pass/fail only.
+
 ## Before/after pages
 
 ```bash

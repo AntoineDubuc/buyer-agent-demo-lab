@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # Pass/fail acceptance check for one buyer-agent checkout.
 #
-#   ./acceptance.sh <path-to-buyer-agent-checkout> <pacing|creatives|negotiation|all> [--out DIR]
+#   ./acceptance.sh <path-to-buyer-agent-checkout> <pacing|creatives|negotiation|budget-desk|all> [--out DIR]
 #
 # Prints one PASS/FAIL line per criterion. Exit 0 only if every criterion passes.
 set -euo pipefail
 if [[ $# -lt 2 ]]; then
-  echo "usage: $0 <path-to-buyer-agent-checkout> <pacing|creatives|negotiation|all> [--out DIR]" >&2
+  echo "usage: $0 <path-to-buyer-agent-checkout> <pacing|creatives|negotiation|budget-desk|all> [--out DIR]" >&2
   exit 2
 fi
 LAB="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

@@ -1,6 +1,6 @@
 """Pass/fail acceptance check for one buyer-agent checkout.
 
-    python -m demo_lab.check <buyer-agent-checkout> <pacing|creatives|negotiation|all> [--out DIR]
+    python -m demo_lab.check <buyer-agent-checkout> <pacing|creatives|negotiation|budget-desk|all> [--out DIR]
     python -m demo_lab.check --results <change>.<label>.json [...]   # evaluate files you already have
 
 Runs the lab inside the checkout's own ``.venv/bin/python`` (empty environment,

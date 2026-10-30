@@ -14,7 +14,7 @@ from typing import Any, Callable
 
 from .sellers import load_config, params_from_dict, reference_simple_loop, tournament_deals
 
-CHANGES = ("pacing", "creatives", "negotiation")
+CHANGES = ("pacing", "creatives", "negotiation", "budget-desk")
 CENT = 0.01
 
 
@@ -398,11 +398,29 @@ def _negotiation_notes(doc: dict[str, Any]) -> list[str]:
     return notes
 
 
+# ---------------------------------------------------------------- budget desk
+
+
+def _budget_desk_checks(doc: dict[str, Any]) -> list[Check]:
+    from .budget_desk_criteria import criteria
+
+    sec = dict(_section(doc))
+    sec["_network_attempts"] = ((doc or {}).get("network") or {}).get("outbound_attempts_blocked")
+    if sec.get("skipped"):
+        return [Check(False, "the Budget Move Desk tools exist", str(sec["skipped"]))]
+    out = []
+    for name, fn in criteria(sec):
+        ok, obs = _guard(fn)
+        out.append(Check(ok, name, obs))
+    return out
+
+
 # ---------------------------------------------------------------- public
 
 
 def evaluate(change: str, doc: dict[str, Any] | None) -> list[Check]:
-    fn = {"pacing": _pacing_checks, "creatives": _creative_checks, "negotiation": _negotiation_checks}[change]
+    fn = {"pacing": _pacing_checks, "creatives": _creative_checks, "negotiation": _negotiation_checks,
+          "budget-desk": _budget_desk_checks}[change]
     try:
         checks = fn(doc or {})
     except Exception as exc:  # noqa: BLE001
